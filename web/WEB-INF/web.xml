@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>test</display-name>
+    
+    
+    <!--// ini default file ketika menjalankan aplikasi-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    
+    
+    <!-- Context Params for DB -->
+    <context-param>
+        <param-name>DB_DRIVER</param-name>
+        <param-value>oracle.jdbc.OracleDriver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DB_URL</param-name>
+        <param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DB_USERNAME</param-name>
+        <param-value>system</param-value>
+    </context-param>
+    <context-param>
+        <param-name>DB_PASSWORD</param-name>
+        <param-value>admin2021</param-value>
+    </context-param>
+
+    <!-- Session config -->
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+
+    <!-- Context Listener -->
+    <listener>
+        <listener-class>com.app.web.listener.AppContextListener</listener-class>
+    </listener>
+
+    <!-- Filters -->
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.app.web.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/dashboard</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/company/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/factory/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>RoleFilter</filter-name>
+        <filter-class>com.app.web.filter.RoleFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RoleFilter</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Error pages -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/403.jsp</location>
+    </error-page>
+
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>AuthController</servlet-name>
+        <servlet-class>com.app.web.controller.AuthController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthController</servlet-name>
+        <url-pattern>/auth/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DashboardController</servlet-name>
+        <servlet-class>com.app.web.controller.DashboardController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardController</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CompanyController</servlet-name>
+        <servlet-class>com.app.web.controller.CompanyController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CompanyController</servlet-name>
+        <url-pattern>/company/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserController</servlet-name>
+        <servlet-class>com.app.web.controller.UserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserController</servlet-name>
+        <url-pattern>/user/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FactoryController</servlet-name>
+        <servlet-class>com.app.web.controller.FactoryController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FactoryController</servlet-name>
+        <url-pattern>/factory/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- Welcome file -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>
+
+
